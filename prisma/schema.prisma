@@ -297,3 +297,96 @@ model Notification {
 
   @@index([userId, isRead])
 }
+
+// ==========================================
+// MEHERBAN LUXURY APPAREL & FASHION E-COMMERCE MODELS
+// ==========================================
+
+model MeherbanCategory {
+  id          String            @id @default(uuid())
+  slug        String            @unique
+  name        String
+  description String?
+  imageUrl    String?
+  sortOrder   Int               @default(0)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+  products    MeherbanProduct[]
+}
+
+model MeherbanProduct {
+  id            String              @id @default(uuid())
+  title         String
+  slug          String              @unique
+  subtitle      String?
+  description   String
+  price         Float
+  originalPrice Float?
+  rating        Float               @default(5.0)
+  reviewCount   Int                 @default(12)
+  categoryId    String?
+  category      MeherbanCategory?   @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  categoryName  String              // "Men", "Women", "Unisex", "Accessories"
+  images        String[]            @default([])
+  colorSwatches Json?               // Array of { name: string, hex: string }
+  sizes         String[]            @default([])
+  inStock       Boolean             @default(true)
+  isTrending    Boolean             @default(false)
+  isFeatured    Boolean             @default(false)
+  badge         String?
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+  orderItems    MeherbanOrderItem[]
+
+  @@index([categoryName])
+  @@index([isTrending])
+  @@index([isFeatured])
+}
+
+model MeherbanOrder {
+  id              String              @id @default(uuid())
+  orderNumber     String              @unique
+  customerName    String
+  customerEmail   String
+  customerPhone   String
+  shippingAddress String
+  city            String
+  totalAmount     Float
+  shippingFee     Float               @default(0)
+  paymentMethod   String              @default("CASH_ON_DELIVERY")
+  paymentStatus   String              @default("PENDING")
+  orderStatus     String              @default("PROCESSING")
+  notes           String?
+  createdAt       DateTime            @default(now())
+  updatedAt       DateTime            @updatedAt
+  items           MeherbanOrderItem[]
+
+  @@index([customerEmail])
+  @@index([orderNumber])
+}
+
+model MeherbanOrderItem {
+  id            String           @id @default(uuid())
+  orderId       String
+  order         MeherbanOrder    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId     String?
+  product       MeherbanProduct? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  title         String
+  price         Float
+  quantity      Int
+  selectedColor String?
+  selectedSize  String?
+  imageUrl      String?
+
+  @@index([orderId])
+}
+
+model MeherbanSubscriber {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  @@index([email])
+}
+

@@ -13,6 +13,7 @@ import walletRoutes from './modules/wallet/wallet.routes.js';
 import fulfillmentRoutes from './modules/fulfillment/fulfillment.routes.js';
 import adminRoutes from './modules/admin/admin.routes.js';
 import notificationRoutes from './modules/notifications/notifications.routes.js';
+import meherbanRoutes from './modules/meherban/meherban.routes.js';
 import { processExpiredCampaigns } from './workers/expiryWorker.js';
 
 const app = express();
@@ -86,6 +87,8 @@ app.use('/api/v1/wallet', walletRoutes);
 app.use('/api/v1/fulfillment', fulfillmentRoutes);
 app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/notifications', notificationRoutes);
+app.use('/api/v1/meherban', meherbanRoutes);
+app.use('/api/meherban', meherbanRoutes);
 
 // Vercel Serverless Cron Trigger for automated refunds
 app.all('/api/v1/cron/expiry', async (_req, res) => {
