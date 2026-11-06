@@ -45,7 +45,7 @@ export const INITIAL_SELLERS: MeherbanSellerItem[] = [
     name: 'Mohaimen Hridoy (Store Owner)',
     email: 'seller@meherban.com',
     password: 'seller123',
-    phone: '01712-345678',
+    phone: '01778607894',
     shopName: 'MEHERBAN Official Store',
     isActive: true,
     joinedAt: '2026-01-15T10:00:00Z',
