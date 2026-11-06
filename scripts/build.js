@@ -21,10 +21,10 @@ if (isRemoteDb) {
     console.error('⚠️ Warning during prisma db push:', err.message);
   }
 
-  console.log('🌱 Step 3: Seeding initial demo users, hubs, and campaigns...');
+  console.log('🌱 Step 3: Seeding Meherban fashion catalog & products...');
   try {
-    execSync('npx tsx prisma/seed.ts', { stdio: 'inherit' });
-    console.log('✅ Initial database seed applied successfully.');
+    execSync('npx tsx prisma/seed-meherban.ts', { stdio: 'inherit' });
+    console.log('✅ Meherban database seed applied successfully.');
   } catch (err) {
     console.error('⚠️ Warning during seeding:', err.message);
   }
