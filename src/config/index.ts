@@ -9,4 +9,9 @@ export const config = {
   jwtSecret: process.env.JWT_SECRET || 'super_secret_bazarpool_jwt_key_2026_dev',
   jwtExpiresIn: process.env.JWT_EXPIRES_IN || '7d',
   expiryCronSchedule: process.env.EXPIRY_CRON_SCHEDULE || '* * * * *',
+  cloudinary: {
+    cloudName: process.env.CLOUDINARY_CLOUD_NAME || '',
+    apiKey: process.env.CLOUDINARY_API_KEY || '',
+    apiSecret: process.env.CLOUDINARY_API_SECRET || '',
+  },
 };

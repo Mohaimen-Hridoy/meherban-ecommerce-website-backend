@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
+import path from 'path';
 import rateLimit from 'express-rate-limit';
 import { errorHandler } from './middleware/errorHandler.js';
 import { sendResponse } from './utils/response.js';
@@ -33,6 +34,9 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Serve local uploads statically
+app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
 
 // Rate Limiting
 const generalLimiter = rateLimit({

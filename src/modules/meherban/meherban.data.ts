@@ -18,10 +18,37 @@ export interface MeherbanProductItem {
   colorSwatches: ColorSwatch[];
   sizes: string[];
   inStock: boolean;
+  stockQuantity: number;
   isTrending: boolean;
   isFeatured: boolean;
   badge?: string;
+  sellerId?: string;
+  sellerName?: string;
 }
+
+export interface MeherbanSellerItem {
+  id: string;
+  name: string;
+  email: string;
+  password?: string;
+  phone: string;
+  shopName: string;
+  isActive: boolean;
+  joinedAt: string;
+}
+
+export const INITIAL_SELLERS: MeherbanSellerItem[] = [
+  {
+    id: 'seller-1',
+    name: 'Mohaimen Hridoy (Store Owner)',
+    email: 'seller@meherban.com',
+    password: 'seller123',
+    phone: '01712-345678',
+    shopName: 'MEHERBAN Official Store',
+    isActive: true,
+    joinedAt: '2026-01-15T10:00:00Z',
+  },
+];
 
 export interface MeherbanCategoryItem {
   id: string;
@@ -94,6 +121,7 @@ export const INITIAL_PRODUCTS: MeherbanProductItem[] = [
     ],
     sizes: ['S', 'M', 'L', 'XL'],
     inStock: true,
+    stockQuantity: 45,
     isTrending: true,
     isFeatured: true,
     badge: 'HOT',
@@ -121,6 +149,7 @@ export const INITIAL_PRODUCTS: MeherbanProductItem[] = [
     ],
     sizes: ['S', 'M', 'L', 'XL'],
     inStock: true,
+    stockQuantity: 45,
     isTrending: true,
     isFeatured: true,
     badge: 'BESTSELLER',
@@ -147,6 +176,7 @@ export const INITIAL_PRODUCTS: MeherbanProductItem[] = [
     ],
     sizes: ['XS', 'S', 'M', 'L'],
     inStock: true,
+    stockQuantity: 30,
     isTrending: true,
     isFeatured: true,
     badge: 'TRENDING',
@@ -173,6 +203,7 @@ export const INITIAL_PRODUCTS: MeherbanProductItem[] = [
     ],
     sizes: ['One Size'],
     inStock: true,
+    stockQuantity: 20,
     isTrending: true,
     isFeatured: true,
     badge: 'NEW',
@@ -199,6 +230,7 @@ export const INITIAL_PRODUCTS: MeherbanProductItem[] = [
     ],
     sizes: ['One Size'],
     inStock: true,
+    stockQuantity: 20,
     isTrending: true,
     isFeatured: true,
     badge: 'POPULAR',
@@ -225,6 +257,7 @@ export const INITIAL_PRODUCTS: MeherbanProductItem[] = [
     ],
     sizes: ['42mm Case'],
     inStock: true,
+    stockQuantity: 15,
     isTrending: true,
     isFeatured: true,
     badge: 'PREMIUM',

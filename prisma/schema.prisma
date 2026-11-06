@@ -331,9 +331,12 @@ model MeherbanProduct {
   colorSwatches Json?               // Array of { name: string, hex: string }
   sizes         String[]            @default([])
   inStock       Boolean             @default(true)
+  stockQuantity Int                 @default(20)
   isTrending    Boolean             @default(false)
   isFeatured    Boolean             @default(false)
   badge         String?
+  sellerId      String?             @default("seller-1")
+  sellerName    String?             @default("Meherban Apparel Store")
   createdAt     DateTime            @default(now())
   updatedAt     DateTime            @updatedAt
   orderItems    MeherbanOrderItem[]
@@ -347,7 +350,7 @@ model MeherbanOrder {
   id              String              @id @default(uuid())
   orderNumber     String              @unique
   customerName    String
-  customerEmail   String
+  customerEmail   String?
   customerPhone   String
   shippingAddress String
   city            String
@@ -357,6 +360,7 @@ model MeherbanOrder {
   paymentStatus   String              @default("PENDING")
   orderStatus     String              @default("PROCESSING")
   notes           String?
+  sellerId        String?             @default("seller-1")
   createdAt       DateTime            @default(now())
   updatedAt       DateTime            @updatedAt
   items           MeherbanOrderItem[]

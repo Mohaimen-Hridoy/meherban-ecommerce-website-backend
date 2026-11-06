@@ -84,4 +84,81 @@ describe('MEHERBAN E-Commerce Storefront Tests', () => {
     // Assert
     assert.strictEqual(result.totalAmount, 1499 + 120); // 1619
   });
+
+  test('should allow seller to add, update stock availability, and delete products', async () => {
+    // 1. Add product
+    const created = await MeherbanService.createProduct({
+      title: 'Winter Knit Sweater',
+      price: 2199,
+      description: 'Heavy gauge luxury wool blend',
+      categoryName: 'Unisex',
+      inStock: true,
+      stockQuantity: 10,
+    });
+
+    assert.ok(created.id);
+    assert.strictEqual(created.title, 'Winter Knit Sweater');
+    assert.strictEqual(created.inStock, true);
+    assert.strictEqual(created.stockQuantity, 10);
+
+    // 2. Toggle stock to unavailable (Seller control)
+    const toggled = await MeherbanService.updateProductStock(created.id, {
+      inStock: false,
+      stockQuantity: 0,
+    });
+    assert.ok(toggled);
+    assert.strictEqual(toggled?.inStock, false);
+    assert.strictEqual(toggled?.stockQuantity, 0);
+
+    // Verify it is excluded when querying inStockOnly
+    const availableOnly = await MeherbanService.getProducts({ inStockOnly: true });
+    assert.ok(!availableOnly.some((p) => p.id === created.id));
+
+    // 3. Delete product (Seller control)
+    const deleted = await MeherbanService.deleteProduct(created.id);
+    assert.strictEqual(deleted, true);
+
+    const lookup = await MeherbanService.getProductById(created.id);
+    assert.strictEqual(lookup, null);
+  });
+
+  test('should allow seller to retrieve orders and update status without requiring customer login', async () => {
+    // Place guest order without login
+    const guestOrder = {
+      customerName: 'Instagram Ad Buyer',
+      customerPhone: '01811223344',
+      shippingAddress: 'Mirpur 10, Dhaka',
+      city: 'Dhaka',
+      paymentMethod: 'CASH_ON_DELIVERY',
+      items: [
+        {
+          productId: 'prod-sunglasses-unisex',
+          title: 'Sunglasses (Unisex)',
+          price: 1299,
+          quantity: 1,
+        },
+      ],
+    };
+
+    const orderRes = await MeherbanService.createOrder(guestOrder);
+    assert.ok(orderRes.orderNumber);
+
+    // Seller retrieves all orders
+    const allOrders = await MeherbanService.getOrders();
+    const placed = allOrders.find((o) => o.orderNumber === orderRes.orderNumber);
+    assert.ok(placed);
+    assert.strictEqual(placed.customerName, 'Instagram Ad Buyer');
+    assert.strictEqual(placed.customerPhone, '01811223344');
+
+    // Seller updates status to SHIPPED
+    const updated = await MeherbanService.updateOrderStatus(orderRes.orderNumber, 'SHIPPED');
+    assert.ok(updated);
+    assert.strictEqual(updated.orderStatus, 'SHIPPED');
+
+    // Seller gets dashboard stats
+    const stats = await MeherbanService.getStats();
+    assert.ok(stats.totalProducts > 0);
+    assert.ok(stats.totalOrders > 0);
+    assert.ok(stats.totalRevenue > 0);
+  });
 });

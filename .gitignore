@@ -26,3 +26,7 @@ Thumbs.db
 .vscode/
 .idea/
 
+# Local uploaded files
+uploads/*
+!uploads/.gitkeep
+
