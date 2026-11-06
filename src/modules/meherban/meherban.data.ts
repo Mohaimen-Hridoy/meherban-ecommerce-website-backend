@@ -1,6 +1,8 @@
 export interface ColorSwatch {
   name: string;
   hex: string;
+  inStock?: boolean;
+  stockQuantity?: number;
 }
 
 export interface MeherbanProductItem {

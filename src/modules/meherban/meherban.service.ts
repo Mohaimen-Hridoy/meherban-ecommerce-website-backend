@@ -237,7 +237,7 @@ export class MeherbanService {
     originalPrice?: number;
     categoryName: string;
     images?: string[];
-    colorSwatches?: { name: string; hex: string }[];
+    colorSwatches?: { name: string; hex: string; inStock?: boolean; stockQuantity?: number }[];
     sizes?: string[];
     inStock?: boolean;
     stockQuantity?: number;
