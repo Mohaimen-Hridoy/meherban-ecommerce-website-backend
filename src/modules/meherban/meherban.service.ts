@@ -130,7 +130,11 @@ export class MeherbanService {
         orderBy: { createdAt: 'desc' },
       });
 
-      return dbProducts.map((p) => ({
+      const dbIds = new Set(dbProducts.map((p) => p.id));
+      const extraMemory = inMemoryProducts.filter((p) => !dbIds.has(p.id));
+      const allProducts = [...dbProducts, ...extraMemory];
+
+      return allProducts.map((p) => ({
         id: p.id,
         title: p.title,
         slug: p.slug,
