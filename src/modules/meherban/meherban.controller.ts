@@ -117,6 +117,8 @@ export class MeherbanController {
         isTrending,
         isFeatured,
         badge,
+        sellerId: req.body.sellerId,
+        sellerName: req.body.sellerName,
       });
 
       return sendResponse(res, {

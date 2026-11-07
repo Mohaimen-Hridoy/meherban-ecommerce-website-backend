@@ -329,7 +329,38 @@ export class MeherbanService {
     id: string,
     data: Partial<MeherbanProductItem>
   ): Promise<MeherbanProductItem | null> {
-    const existingIndex = inMemoryProducts.findIndex((p) => p.id === id);
+    let existingIndex = inMemoryProducts.findIndex((p) => p.id === id);
+    if (existingIndex === -1) {
+      try {
+        const dbP = await prisma.meherbanProduct.findUnique({ where: { id } });
+        if (dbP) {
+          inMemoryProducts.push({
+            id: dbP.id,
+            title: dbP.title,
+            slug: dbP.slug,
+            subtitle: dbP.subtitle || '',
+            description: dbP.description,
+            price: dbP.price,
+            originalPrice: dbP.originalPrice || dbP.price,
+            rating: dbP.rating,
+            reviewCount: dbP.reviewCount,
+            categoryName: dbP.categoryName,
+            images: dbP.images,
+            colorSwatches: (dbP.colorSwatches as any) || [],
+            sizes: dbP.sizes,
+            inStock: dbP.inStock,
+            stockQuantity: (dbP as any).stockQuantity ?? (dbP.inStock ? 20 : 0),
+            isTrending: dbP.isTrending,
+            isFeatured: dbP.isFeatured,
+            badge: dbP.badge || undefined,
+            sellerId: (dbP as any).sellerId || 'seller-1',
+            sellerName: (dbP as any).sellerName || 'Meherban Apparel Store',
+          });
+          existingIndex = inMemoryProducts.length - 1;
+        }
+      } catch {}
+    }
+
     if (existingIndex === -1) {
       return null;
     }
@@ -388,7 +419,38 @@ export class MeherbanService {
     id: string,
     update: { inStock?: boolean; stockQuantity?: number }
   ): Promise<MeherbanProductItem | null> {
-    const existingIndex = inMemoryProducts.findIndex((p) => p.id === id);
+    let existingIndex = inMemoryProducts.findIndex((p) => p.id === id);
+    if (existingIndex === -1) {
+      try {
+        const dbP = await prisma.meherbanProduct.findUnique({ where: { id } });
+        if (dbP) {
+          inMemoryProducts.push({
+            id: dbP.id,
+            title: dbP.title,
+            slug: dbP.slug,
+            subtitle: dbP.subtitle || '',
+            description: dbP.description,
+            price: dbP.price,
+            originalPrice: dbP.originalPrice || dbP.price,
+            rating: dbP.rating,
+            reviewCount: dbP.reviewCount,
+            categoryName: dbP.categoryName,
+            images: dbP.images,
+            colorSwatches: (dbP.colorSwatches as any) || [],
+            sizes: dbP.sizes,
+            inStock: dbP.inStock,
+            stockQuantity: (dbP as any).stockQuantity ?? (dbP.inStock ? 20 : 0),
+            isTrending: dbP.isTrending,
+            isFeatured: dbP.isFeatured,
+            badge: dbP.badge || undefined,
+            sellerId: (dbP as any).sellerId || 'seller-1',
+            sellerName: (dbP as any).sellerName || 'Meherban Apparel Store',
+          });
+          existingIndex = inMemoryProducts.length - 1;
+        }
+      } catch {}
+    }
+
     if (existingIndex === -1) return null;
 
     const current = inMemoryProducts[existingIndex];
