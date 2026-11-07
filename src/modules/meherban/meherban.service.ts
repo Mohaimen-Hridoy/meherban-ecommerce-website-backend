@@ -228,6 +228,7 @@ export class MeherbanService {
    * Create a new product (Admin seller)
    */
   static async createProduct(data: {
+    id?: string;
     title: string;
     subtitle?: string;
     description: string;
@@ -253,7 +254,13 @@ export class MeherbanService {
       .replace(/^-+|-+$/g, '');
     const slug = (cleanSlug || 'product') + `-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`;
 
-    const id = `prod-${Date.now()}`;
+    const id = data.id || `prod-${Date.now()}`;
+    const cleanCategory = (data.categoryName || 'Women').trim();
+    const standardMatch = ['Men', 'Women', 'Unisex', 'Accessories', 'Clothing'].find(
+      (c) => c.toLowerCase() === cleanCategory.toLowerCase()
+    );
+    const categoryName = standardMatch || cleanCategory;
+
     const newProduct: MeherbanProductItem = {
       id,
       title: data.title,
@@ -264,7 +271,7 @@ export class MeherbanService {
       originalPrice: Number(data.originalPrice) || Number(data.price),
       rating: 5.0,
       reviewCount: 1,
-      categoryName: data.categoryName || 'Unisex',
+      categoryName,
       images:
         data.images && data.images.length > 0
           ? data.images

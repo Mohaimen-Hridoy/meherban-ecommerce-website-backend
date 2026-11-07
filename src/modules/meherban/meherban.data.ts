@@ -65,7 +65,7 @@ export const INITIAL_CATEGORIES: MeherbanCategoryItem[] = [
   {
     id: 'cat-men',
     slug: 'men',
-    name: 'MEN',
+    name: 'Men',
     description: 'Classic meets modern contemporary streetwear and tailoring.',
     tagline: 'Shop Now →',
     imageUrl:
@@ -74,7 +74,7 @@ export const INITIAL_CATEGORIES: MeherbanCategoryItem[] = [
   {
     id: 'cat-women',
     slug: 'women',
-    name: 'WOMEN',
+    name: 'Women',
     description: 'Elegance in every detail with timeless neutral silhouettes.',
     tagline: 'Shop Now →',
     imageUrl:
@@ -83,7 +83,7 @@ export const INITIAL_CATEGORIES: MeherbanCategoryItem[] = [
   {
     id: 'cat-unisex',
     slug: 'unisex',
-    name: 'UNISEX',
+    name: 'Unisex',
     description: 'Versatile, fluid essentials designed for all humans.',
     tagline: 'Shop Now →',
     imageUrl:
@@ -92,7 +92,7 @@ export const INITIAL_CATEGORIES: MeherbanCategoryItem[] = [
   {
     id: 'cat-accessories',
     slug: 'accessories',
-    name: 'ACCESSORIES',
+    name: 'Accessories',
     description: 'Handcrafted leather goods, polarized eyewear, and timepieces.',
     tagline: 'Shop Now →',
     imageUrl:
@@ -182,6 +182,62 @@ export const INITIAL_PRODUCTS: MeherbanProductItem[] = [
     isTrending: true,
     isFeatured: true,
     badge: 'TRENDING',
+  },
+  {
+    id: 'prod-women-kurti',
+    title: "Women's Embroidered Cotton Kurti",
+    slug: 'womens-embroidered-cotton-kurti',
+    subtitle: 'Festive Elegance & Breathable Daily Wear',
+    description:
+      'Crafted from 100% premium combed cotton with delicate neckline thread embroidery, side slits, and a relaxed graceful silhouette.',
+    price: 1850,
+    originalPrice: 2350,
+    rating: 4.9,
+    reviewCount: 42,
+    categoryName: 'Women',
+    images: [
+      'https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?auto=format&fit=crop&w=800&q=80',
+    ],
+    colorSwatches: [
+      { name: 'Maroon', hex: '#800000', inStock: true, stockQuantity: 20 },
+      { name: 'Navy Blue', hex: '#000080', inStock: true, stockQuantity: 15 },
+      { name: 'Black', hex: '#000000', inStock: true, stockQuantity: 25 },
+    ],
+    sizes: ['S', 'M', 'L', 'XL'],
+    inStock: true,
+    stockQuantity: 60,
+    isTrending: true,
+    isFeatured: true,
+    badge: 'NEW',
+  },
+  {
+    id: 'prod-women-linen-shirt',
+    title: "Women's Oversized Linen Shirt",
+    slug: 'womens-oversized-linen-shirt',
+    subtitle: 'Effortless Summer Casual Button-Down',
+    description:
+      'Breathable pure linen-cotton blend with mother-of-pearl buttons, dropped shoulders, and curved high-low hem.',
+    price: 1699,
+    originalPrice: 2099,
+    rating: 4.8,
+    reviewCount: 57,
+    categoryName: 'Women',
+    images: [
+      'https://images.unsplash.com/photo-1598554747436-c9293d6a588f?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80',
+    ],
+    colorSwatches: [
+      { name: 'White', hex: '#FFFFFF', inStock: true, stockQuantity: 30 },
+      { name: 'Beige', hex: '#F5F5DC', inStock: true, stockQuantity: 20 },
+      { name: 'Pink', hex: '#FFC0CB', inStock: true, stockQuantity: 15 },
+    ],
+    sizes: ['S', 'M', 'L', 'XL'],
+    inStock: true,
+    stockQuantity: 65,
+    isTrending: true,
+    isFeatured: true,
+    badge: 'POPULAR',
   },
   {
     id: 'prod-sunglasses-unisex',

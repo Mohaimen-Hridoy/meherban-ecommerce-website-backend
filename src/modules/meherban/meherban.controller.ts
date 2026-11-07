@@ -76,6 +76,7 @@ export class MeherbanController {
   static async createProduct(req: Request, res: Response) {
     try {
       const {
+        id,
         title,
         subtitle,
         description,
@@ -101,6 +102,7 @@ export class MeherbanController {
       }
 
       const newProduct = await MeherbanService.createProduct({
+        id,
         title,
         subtitle,
         description,
