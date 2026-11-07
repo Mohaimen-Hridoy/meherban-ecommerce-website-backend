@@ -130,30 +130,28 @@ export class MeherbanService {
         orderBy: { createdAt: 'desc' },
       });
 
-      if (dbProducts.length > 0) {
-        return dbProducts.map((p) => ({
-          id: p.id,
-          title: p.title,
-          slug: p.slug,
-          subtitle: p.subtitle || '',
-          description: p.description,
-          price: p.price,
-          originalPrice: p.originalPrice || p.price,
-          rating: p.rating,
-          reviewCount: p.reviewCount,
-          categoryName: p.categoryName,
-          images: p.images,
-          colorSwatches: (p.colorSwatches as any) || [],
-          sizes: p.sizes,
-          inStock: p.inStock,
-          stockQuantity: (p as any).stockQuantity ?? (p.inStock ? 20 : 0),
-          isTrending: p.isTrending,
-          isFeatured: p.isFeatured,
-          badge: p.badge || undefined,
-        }));
-      }
+      return dbProducts.map((p) => ({
+        id: p.id,
+        title: p.title,
+        slug: p.slug,
+        subtitle: p.subtitle || '',
+        description: p.description,
+        price: p.price,
+        originalPrice: p.originalPrice || p.price,
+        rating: p.rating,
+        reviewCount: p.reviewCount,
+        categoryName: p.categoryName,
+        images: p.images,
+        colorSwatches: (p.colorSwatches as any) || [],
+        sizes: p.sizes,
+        inStock: p.inStock,
+        stockQuantity: (p as any).stockQuantity ?? (p.inStock ? 20 : 0),
+        isTrending: p.isTrending,
+        isFeatured: p.isFeatured,
+        badge: p.badge || undefined,
+      }));
     } catch {
-      // Fallback
+      // Fallback only if Prisma/database fails
     }
 
     // In-memory filtered resolution
@@ -247,12 +245,13 @@ export class MeherbanService {
     sellerId?: string;
     sellerName?: string;
   }): Promise<MeherbanProductItem> {
-    const slug = data.title
+    const cleanSlug = data.title
       .toLowerCase()
       .trim()
-      .replace(/[^\w\s-]/g, '')
+      .replace(/[^\w\s\u0980-\u09FF-]/g, '')
       .replace(/[\s_-]+/g, '-')
-      .replace(/^-+|-+$/g, '') + `-${Date.now().toString().slice(-4)}`;
+      .replace(/^-+|-+$/g, '');
+    const slug = (cleanSlug || 'product') + `-${Date.now()}-${Math.random().toString(36).substring(2, 6)}`;
 
     const id = `prod-${Date.now()}`;
     const newProduct: MeherbanProductItem = {
