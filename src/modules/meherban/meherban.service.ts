@@ -145,6 +145,7 @@ export class MeherbanService {
         rating: p.rating,
         reviewCount: p.reviewCount,
         categoryName: p.categoryName,
+        subcategory: (p as any).subcategory || undefined,
         images: p.images,
         colorSwatches: (p.colorSwatches as any) || [],
         sizes: p.sizes,
@@ -208,6 +209,7 @@ export class MeherbanService {
           rating: p.rating,
           reviewCount: p.reviewCount,
           categoryName: p.categoryName,
+        subcategory: (p as any).subcategory || undefined,
           images: p.images,
           colorSwatches: (p.colorSwatches as any) || [],
           sizes: p.sizes,
@@ -239,6 +241,7 @@ export class MeherbanService {
     price: number;
     originalPrice?: number;
     categoryName: string;
+    subcategory?: string;
     images?: string[];
     colorSwatches?: { name: string; hex: string; inStock?: boolean; stockQuantity?: number }[];
     sizes?: string[];
@@ -276,6 +279,7 @@ export class MeherbanService {
       rating: 5.0,
       reviewCount: 1,
       categoryName,
+      subcategory: data.subcategory || undefined,
       images:
         data.images && data.images.length > 0
           ? data.images
@@ -304,6 +308,7 @@ export class MeherbanService {
           rating: newProduct.rating,
           reviewCount: newProduct.reviewCount,
           categoryName: newProduct.categoryName,
+          subcategory: newProduct.subcategory,
           images: newProduct.images,
           colorSwatches: newProduct.colorSwatches as any,
           sizes: newProduct.sizes,
@@ -345,6 +350,7 @@ export class MeherbanService {
             rating: dbP.rating,
             reviewCount: dbP.reviewCount,
             categoryName: dbP.categoryName,
+            subcategory: (dbP as any).subcategory || undefined,
             images: dbP.images,
             colorSwatches: (dbP.colorSwatches as any) || [],
             sizes: dbP.sizes,
@@ -395,6 +401,7 @@ export class MeherbanService {
           price: updated.price,
           originalPrice: updated.originalPrice,
           categoryName: updated.categoryName,
+          subcategory: updated.subcategory,
           images: updated.images,
           colorSwatches: updated.colorSwatches as any,
           sizes: updated.sizes,
@@ -435,6 +442,7 @@ export class MeherbanService {
             rating: dbP.rating,
             reviewCount: dbP.reviewCount,
             categoryName: dbP.categoryName,
+            subcategory: (dbP as any).subcategory || undefined,
             images: dbP.images,
             colorSwatches: (dbP.colorSwatches as any) || [],
             sizes: dbP.sizes,

@@ -327,6 +327,7 @@ model MeherbanProduct {
   categoryId    String?
   category      MeherbanCategory?   @relation(fields: [categoryId], references: [id], onDelete: SetNull)
   categoryName  String              // "Men", "Women", "Unisex", "Accessories"
+  subcategory   String?
   images        String[]            @default([])
   colorSwatches Json?               // Array of { name: string, hex: string }
   sizes         String[]            @default([])
